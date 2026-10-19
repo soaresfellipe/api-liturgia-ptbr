@@ -2,7 +2,7 @@
 
 API Flask que disponibiliza via API as leituras litúrgicas diárias (fonte: [Canção Nova](https://liturgia.cancaonova.com/pb/)), coletadas a cada requisição, para facilitar a criação de aplicações que almejam a evangelização.
 
-**URL em produção:** <https://api-liturgia-diaria.vercel.app/>
+**Deploy:** este repositório é um fork — configure seu próprio projeto na Vercel (importando o repositório) para ter uma URL de produção. A URL `api-liturgia-diaria.vercel.app` pertence ao repositório original e não reflete este código.
 
 ## Tecnologias
 
@@ -110,4 +110,4 @@ A fonte (`liturgia.cancaonova.com`) é um site externo: mudanças no HTML podem 
 
 ## Deploy
 
-O deploy é automático na Vercel a cada push na `main` (configuração em `vercel.json`).
+O `vercel.json` já contém a configuração de build. Como este repositório é um fork, conecte-o a um projeto próprio na Vercel (Import Project → este repositório) para habilitar o deploy automático a cada push na `main`.

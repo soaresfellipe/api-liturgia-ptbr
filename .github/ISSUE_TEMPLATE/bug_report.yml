@@ -14,7 +14,7 @@ body:
     attributes:
       label: Passos para reproduzir
       placeholder: |
-        1. curl https://api-liturgia-diaria.vercel.app/
+        1. curl https://SEU-PROJETO.vercel.app/
         2. Erro observado: ...
     validations:
       required: true
