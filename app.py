@@ -1,9 +1,11 @@
 """API das leituras litúrgicas diárias (fonte: Canção Nova)."""
 
+from __future__ import annotations
+
 import json
 import logging
 import os
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from flask import Flask, Response, jsonify
@@ -48,7 +50,7 @@ class JsonFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         payload: dict[str, Any] = {
-            "timestamp": datetime.now(UTC).isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),  # noqa: UP017 — compatível com Python 3.9
             "level": record.levelname,
             "logger": record.name,
             "event": record.getMessage(),
@@ -99,7 +101,7 @@ def health() -> Response:
     return jsonify(
         {
             "status": "ok",
-            "timestamp": datetime.now(UTC).isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),  # noqa: UP017 — compatível com Python 3.9
         }
     )
 
