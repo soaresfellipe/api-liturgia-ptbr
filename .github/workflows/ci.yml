@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Instalar dependências
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Lint (ruff)
+        run: ruff check .
+      - name: Formatação (ruff format)
+        run: ruff format --check .
+      - name: Type check (mypy strict)
+        run: mypy
+      - name: Testes com cobertura
+        run: pytest --cov-report=xml
+      - name: Dependências (deptry)
+        run: deptry .
+      - name: Código morto (vulture)
+        run: vulture app.py extractor
+      - name: Complexidade (radon)
+        run: radon cc --min C app.py extractor
