@@ -1,0 +1,25 @@
+# Relatórios de auditoria
+AGENT_READINESS_REPORT.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Ambiente
+.env
+.env.local
+
+# IDE / SO
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+# Caches de ferramentas de qualidade
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/

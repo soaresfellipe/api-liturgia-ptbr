@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: API Liturgia Diária
+  version: 1.0.0
+  description: >
+    API que disponibiliza as leituras litúrgicas diárias (fonte: Canção Nova),
+    coletadas por requisição. Hospedada em https://api-liturgia-diaria.vercel.app/
+servers:
+  - url: https://api-liturgia-diaria.vercel.app
+paths:
+  /:
+    get:
+      summary: Leituras litúrgicas do dia
+      description: >
+        Retorna as leituras do dia extraídas da Canção Nova. Em falha da fonte,
+        serve a última leitura em cache (campo `source` indica a origem) ou
+        responde 502 se não houver cache.
+      responses:
+        "200":
+          description: Leituras do dia
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LiturgiaResponse"
+        "502":
+          description: Fonte indisponível e sem cache
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: Serviço saudável
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+components:
+  schemas:
+    LiturgiaResponse:
+      type: object
+      properties:
+        objective:
+          type: string
+        source:
+          type: string
+          description: '"Canção Nova" ou "Canção Nova (cache)"'
+        today:
+          type: object
+          properties:
+            date_string:
+              type: object
+              properties:
+                day: { type: string }
+                month: { type: string }
+                year: { type: string }
+            date:
+              type: string
+              example: "19/10/2026"
+            color:
+              type: string
+              example: "Verde"
+            entry_title:
+              type: string
+            readings:
+              type: object
+              properties:
+                first_reading:
+                  $ref: "#/components/schemas/Reading"
+                second_reading:
+                  $ref: "#/components/schemas/Reading"
+                psalm:
+                  $ref: "#/components/schemas/Psalm"
+                gospel:
+                  $ref: "#/components/schemas/Reading"
+              description: >
+                Cada leitura aparece apenas quando prevista pela liturgia do dia.
+    Reading:
+      type: object
+      properties:
+        title: { type: string }
+        head: { type: string }
+        head_response: { type: string }
+        text: { type: string }
+        footer: { type: string }
+        footer_response: { type: string }
+        all_html: { type: string }
+    Psalm:
+      type: object
+      properties:
+        title: { type: string }
+        response: { type: string }
+        content_psalm:
+          type: array
+          items: { type: string }
+        all_html: { type: string }
+    HealthResponse:
+      type: object
+      properties:
+        status: { type: string, example: "ok" }
+        timestamp: { type: string, format: date-time }
+    ErrorResponse:
+      type: object
+      properties:
+        error: { type: string, example: "upstream_unavailable" }
+        source: { type: string }
