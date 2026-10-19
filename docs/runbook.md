@@ -41,8 +41,9 @@ O parser depende de: `dia-calendar`, `mes-calendar`, `ano-calendar`, `cor-liturg
 
 ## Deploy
 
-- Push na `main` → deploy automático na Vercel (`vercel.json`).
-- Após o deploy, smoke test: `curl https://api-liturgia-diaria.vercel.app/health` e `curl https://api-liturgia-diaria.vercel.app/ | head -c 500`.
+- Este repositório é um fork: conecte-o a um projeto próprio na Vercel (Import Project) para habilitar deploy automático no push da `main` (`vercel.json` já configurado).
+- Após o deploy, smoke test na URL do seu projeto (substitua `SEU-PROJETO`):
+  `curl https://SEU-PROJETO.vercel.app/health` e `curl https://SEU-PROJETO.vercel.app/ | head -c 500`.
 
 ## Próximos passos sugeridos (exigem serviços externos)
 

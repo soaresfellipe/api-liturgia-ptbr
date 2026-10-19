@@ -4,9 +4,11 @@ info:
   version: 1.0.0
   description: >
     API que disponibiliza as leituras litúrgicas diárias (fonte: Canção Nova),
-    coletadas por requisição. Hospedada em https://api-liturgia-diaria.vercel.app/
+    coletadas por requisição. Este repositório é um fork; a URL de produção
+    depende do projeto Vercel configurado para ele.
 servers:
-  - url: https://api-liturgia-diaria.vercel.app
+  - url: https://SEU-PROJETO.vercel.app
+    description: Substitua pela URL do seu projeto Vercel após o deploy deste fork
 paths:
   /:
     get:

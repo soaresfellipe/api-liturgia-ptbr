@@ -4,7 +4,7 @@ Instruções para agentes de código trabalhando neste repositório.
 
 ## Visão geral
 
-API Flask que serve as leituras litúrgicas diárias extraídas por scraping de `https://liturgia.cancaonova.com/pb/` a cada requisição. Hospedada na Vercel (deploy automático na `main`).
+API Flask que serve as leituras litúrgicas diárias extraídas por scraping de `https://liturgia.cancaonova.com/pb/` a cada requisição. Este repositório é um fork: o deploy na Vercel depende de um projeto próprio configurado para ele (a URL `api-liturgia-diaria.vercel.app` é do repositório original).
 
 ## Comandos
 
@@ -45,4 +45,4 @@ API Flask que serve as leituras litúrgicas diárias extraídas por scraping de 
 
 ## Deploy
 
-Push na `main` dispara deploy na Vercel. Valide localmente antes (`flask --app app run` + `curl localhost:5000/`).
+Com o fork conectado a um projeto Vercel, o push na `main` dispara o deploy. Valide localmente antes (`flask --app app run` + `curl localhost:5000/`).
