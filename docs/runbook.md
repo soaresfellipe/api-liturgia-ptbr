@@ -42,6 +42,7 @@ O parser depende de: `dia-calendar`, `mes-calendar`, `ano-calendar`, `cor-liturg
 ## Deploy
 
 - Este repositório é um fork: conecte-o a um projeto próprio na Vercel (Import Project) para habilitar deploy automático no push da `main` (`vercel.json` já configurado).
+- Alternativa em hospedagem compartilhada com Python (ex.: 20i): [docs/deploy-20i.md](deploy-20i.md).
 - Após o deploy, smoke test na URL do seu projeto (substitua `SEU-PROJETO`):
   `curl https://SEU-PROJETO.vercel.app/health` e `curl https://SEU-PROJETO.vercel.app/ | head -c 500`.
 

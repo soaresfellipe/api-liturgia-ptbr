@@ -70,7 +70,7 @@ flowchart LR
 
 ## Requisitos
 
-- Python 3.12+ (testado até 3.13)
+- Python 3.9 ou mais recente (testado em 3.12 e 3.13)
 - pip
 
 ## Setup (do clone ao rodando)

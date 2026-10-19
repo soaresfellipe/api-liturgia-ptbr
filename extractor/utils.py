@@ -1,5 +1,7 @@
 """Utilitários de formatação e limpeza de texto usados pela extração."""
 
+from __future__ import annotations
+
 import re
 
 _MONTHS: dict[str, str] = {

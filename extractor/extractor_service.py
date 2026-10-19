@@ -1,5 +1,7 @@
 """Extração das leituras litúrgicas diárias do site da Canção Nova."""
 
+from __future__ import annotations
+
 import logging
 import time
 from typing import Any
