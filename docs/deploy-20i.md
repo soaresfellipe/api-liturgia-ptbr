@@ -73,6 +73,33 @@ curl https://catolicoapp.com/ | head -c 500
 Esperado: `{"status": "ok", "timestamp": "..."}` no health e o JSON de leituras
 na raiz. Em falha da fonte, `502 {"error": "upstream_unavailable"}`.
 
+## Deploy real (2026-10-19 — pacote `catolicoapp.com`)
+
+O que de fato funciona neste pacote, verificado em produção:
+
+- **SSH**: `ssh catolicoapp.com@ssh.us.stackcp.com` (gateway US; chave
+  `id_ed25519_catolicoapp-20i-v2` cadastrada no My20i → SSH Access). Python
+  **3.9.25** com venv; `pip` do venv falha (`Permission denied`) — use
+  `.venv/bin/python -m pip`.
+- **Pins 3.9**: `requests` fica limitado a 2.32.5 e `soupsieve` a 2.8.x
+  (marcadores de ambiente em `requirements.txt` resolvem isso).
+- **CGI e mod_proxy bloqueados**: `.cgi` é servido como fonte bruta e
+  `RewriteRule [P]` devolve 503. Não há Passenger acessível via SSH.
+- **Modo viável: JSON estático + cron**:
+  1. Subdomínio criado via API do reseller:
+     `POST /package/3262437/web/subdomains` com
+     `{"add": {"api-liturgia.catolicoapp.com": "public_html/api-liturgia"}}`
+     (DNS e SSL gratuitos saem automáticos; HTTP 301 → HTTPS).
+  2. Repo clonado em `~/api-liturgia` com venv `.venv`.
+  3. Cron no painel (ou via API `POST /package/{id}/web/tasks`) regenera os
+     JSONs de hora em hora:
+     `cd ~/api-liturgia && .venv/bin/python scripts/generate_static.py $HOME/public_html/api-liturgia`
+  4. URLs de consumo: `https://api-liturgia.catolicoapp.com/index.json` e
+     `.../health.json`.
+
+O `crontab` direto via SSH é negado (`You are not allowed to use this
+program`); crons são exclusivos do painel/API.
+
 ## Limitações conhecidas
 
 - Sem processo persistente: o cache de fallback em memória não sobrevive entre
